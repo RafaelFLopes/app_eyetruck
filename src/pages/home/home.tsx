@@ -9,7 +9,7 @@ export default function Home() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home</Text>
       <TouchableOpacity onPress={() => navigation.navigate('EditarPerfil')}>
-                  <Text>Cadastrar</Text>
+        <Text>Cadastrar</Text>
       </TouchableOpacity>
     </View>
   );
