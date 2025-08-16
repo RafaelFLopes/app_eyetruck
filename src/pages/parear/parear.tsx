@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 
 export default function Parear() {
 
-  const navigation = useNavigation();
+  const navigation = useNavigation() as any; //para conseguir navegar entre as telas
 
   return (    
     <View style={styles.containerParear}>
