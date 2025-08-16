@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 
 export default function Cadastro() {
 
-  const navigation = useNavigation(); //para conseguir navegar entre as telas
+  const navigation = useNavigation() as any; //para conseguir navegar entre as telas
   
     return (
       <View style={styles.containerCadastro}>
