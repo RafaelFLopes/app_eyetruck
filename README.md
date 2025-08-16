@@ -1,4 +1,4 @@
-## ´Para o projeto funcionar adicione esses comandos no terminal
+## Para o projeto funcionar adicione esses comandos no terminal
 
    ```bash
    npm install
@@ -9,7 +9,7 @@
    ```
 
    ```bash
-   npm install @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context
+   npm install @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context @react-navigation/bottom-tabs
    ```
 
 
