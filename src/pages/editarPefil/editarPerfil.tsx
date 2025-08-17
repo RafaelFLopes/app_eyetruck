@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 
 export default function EditarPerfil() {
 
-    const navigation = useNavigation(); //para conseguir navegar entre as telas
+    const navigation = useNavigation() as any; //para conseguir navegar entre as telas
 
     return (
         <View style={styles.containerEditarPerfil}>
@@ -32,7 +32,7 @@ export default function EditarPerfil() {
                     <Text style={styles.textButtonFormularioEditarPerfil}>Salvar</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonSairConta} >
+            <TouchableOpacity style={styles.buttonSairConta} onPress={() => navigation.navigate('Login')}>
                 <Text style={styles.textButtonSairConta}>Sair da conta</Text>
             </TouchableOpacity>
         </View>
