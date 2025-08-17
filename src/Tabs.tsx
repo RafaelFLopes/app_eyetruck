@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import EditarPerfil from './pages/editarPefil/editarPerfil';
 import Home from './pages/home/home';
+import EditarAltura from './pages/editarAltura/editarAltura';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,9 @@ export default function Tabs() {
           } else if (route.name === 'EditarPerfil') {
             iconName = focused ? 'person' : 'person-outline';
           }
+           else if (route.name === 'EditarAltura') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          }
           return <Ionicons name={iconName as any} size={20} color={color} />;
         },
       })}
@@ -40,6 +44,11 @@ export default function Tabs() {
         name="Home"
         component={Home}
         options={{ tabBarLabel: 'Início' }}
+      />
+      <Tab.Screen
+        name="EditarAltura"
+        component={EditarAltura}
+        options={{ tabBarLabel: 'Altura' }}
       />
       <Tab.Screen
         name="EditarPerfil"
