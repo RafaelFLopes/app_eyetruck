@@ -9,7 +9,7 @@
    ```bash
    npm install @react-navigation/native
    ```
-      ```bash
+   ```bash
    npm install @react-navigation/stack
    ```
    ```bash
