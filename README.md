@@ -3,13 +3,26 @@
    ```bash
    npm install
    ```
-
    ```bash
    npx expo start
    ```
+   ```bash
+   npm install @react-navigation/native
+   ```
+      ```bash
+   npm install @react-navigation/stack
+   ```
+   ```bash
+   npm install react-native-screens
+   ```
+   ```bash
+   npm install react-native-safe-area-context
+   ```
+   ```bash
+   npm install @react-navigation/bottom-tabs
+   ```
+   >  *Após adicionar qualquer comando para importação de alguma ferramenta, é necessário limpar o cache do bundler. adicione o comando:*
 
    ```bash
-   npm install @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context @react-navigation/bottom-tabs
+   npx expo start -c
    ```
-
-
