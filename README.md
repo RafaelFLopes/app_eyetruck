@@ -26,3 +26,8 @@
    ```bash
    npx expo start -c
    ```
+
+   >  *Comando para adicionar as dependências do banco de dados (Firebase):*
+   ```bash
+   npm install firebase
+   ```
