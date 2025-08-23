@@ -24,6 +24,7 @@ export default function Index() {
   }
 
   return (
+    
     <View style={styles.containerLogin}>
       <View style={styles.headerLogin}>
         <Text style={styles.tituloLogin}>Login</Text>
@@ -46,7 +47,6 @@ export default function Index() {
         />
         <TouchableOpacity style={styles.buttonFormularioLogin} onPress={async () => {
           await login()
-
         }}>
           <Text style={styles.textButtonFormularioLogin}>Entrar</Text>
         </TouchableOpacity>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   buttonFormularioLogin: {
-    backgroundColor: '#333',
+    backgroundColor: '#2e4e8aff',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
