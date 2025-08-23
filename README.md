@@ -18,10 +18,10 @@
    ```bash
    npm install react-native-safe-area-context
    ```
-    ```bash
+   ```bash
    npm install @react-navigation/bottom-tabs
    ```
-    ```bash
+   ```bash
    npm install @react-native-async-storage/async-storage
    ```
    >  *Após adicionar qualquer comando para importação de alguma ferramenta, é necessário limpar o cache do bundler. adicione o comando:*
