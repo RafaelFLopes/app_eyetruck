@@ -1,6 +1,70 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { useDevice } from "../../contexts/DeviceContext"
+
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
+
+import React, { useState, useEffect } from 'react';
+
+import { db } from '../../../FirebaseConfig';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export default function EditarAltura() {
+    const navigation = useNavigation<any>();
+    const { codigo } = useDevice();
+
+    const [alturaCaminhao, setAlturaCaminhao] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (!codigo) return; // espera código estar disponível
+
+        const fetchData = async () => {
+            try {
+                const ref = doc(db, "tbl_dispositivos", codigo);
+                const snapshot = await getDoc(ref);
+
+                if (snapshot.exists()) {
+                    const data = snapshot.data();
+                    setAlturaCaminhao(data.alturaCaminhao?.toString() || "");
+                } else {
+                    alert("Dispositivo não encontrado!");
+                    navigation.goBack();
+                }
+            } catch (error) {
+                console.error("Erro ao buscar altura:", error);
+                alert("Erro ao buscar altura");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [codigo]);
+
+    const updateAlturaCaminhao = async () => {
+        if (!alturaCaminhao.trim()) {
+            alert("Digite uma altura válida!");
+            return;
+        }
+
+        try {
+            const ref = doc(db, "tbl_dispositivos", codigo);
+            await updateDoc(ref, { alturaCaminhao: parseFloat(alturaCaminhao) });
+            alert("Altura atualizada com sucesso!");
+        } catch (error) {
+            console.error("Erro ao atualizar altura:", error);
+            alert("Erro ao atualizar altura");
+        }
+    };
+
+    if (!codigo || loading) {
+        return (
+            <View style={styles.containerEditarAltura}>
+                <ActivityIndicator size="large" color="#333" />
+                <Text style={{ marginTop: 10 }}>Carregando...</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.containerEditarAltura}>
@@ -12,9 +76,12 @@ export default function EditarAltura() {
                 <Text style={styles.labelFormularioEditarAltura}>Altura do Caminhão</Text>
                 <TextInput
                     style={styles.inputFormularioEditarAltura}
-                    placeholder="Altura"
+                    placeholder="Altura em metros"
+                    keyboardType="numeric"
+                    value={alturaCaminhao}
+                    onChangeText={setAlturaCaminhao}
                 />
-                <TouchableOpacity style={styles.buttonFormularioEditarAltura} >
+                <TouchableOpacity style={styles.buttonFormularioEditarAltura} onPress={updateAlturaCaminhao}>
                     <Text style={styles.textButtonFormularioEditarAltura}>Salvar</Text>
                 </TouchableOpacity>
             </View>
@@ -30,7 +97,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 15,
     },
-
     headerEditarAltura: {
         width: '100%',
         alignItems: 'center',
@@ -46,7 +112,6 @@ const styles = StyleSheet.create({
         color: '#666',
         textAlign: 'center',
     },
-
     formularioEditarAltura: {
         width: '100%',
         gap: 10,
@@ -75,26 +140,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     textButtonFormularioEditarAltura: {
-        color: '#f2f2f2',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    tituloFormularioEditarAltura: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#333',
-        marginBottom: 15,
-    },
-    buttonSairConta: {
-        width: '100%',
-        backgroundColor: '#333',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        marginTop: 40,
-    },
-    textButtonSairConta: {
         color: '#f2f2f2',
         fontSize: 16,
         fontWeight: 'bold',

@@ -1,9 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
+import React, { useState } from 'react';
+
+import { auth } from '../../../FirebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
 export default function Index() {
 
   const navigation = useNavigation() as any; //para conseguir navegar entre as telas
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, senha)
+      navigation.navigate('Home')
+    } catch (error: any) {
+      console.log(error)
+      alert('Login falhou: ' + error.message);
+    }
+  }
 
   return (
     <View style={styles.containerLogin}>
@@ -13,16 +31,23 @@ export default function Index() {
       </View>
       <View style={styles.formularioLogin}>
         <Text style={styles.labelFormularioLogin}>Email</Text>
-        <TextInput 
+        <TextInput
           style={styles.inputFormularioLogin}
           placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
         />
         <Text style={styles.labelFormularioLogin}>Senha</Text>
-        <TextInput 
+        <TextInput
           style={styles.inputFormularioLogin}
           placeholder="Senha"
+          value={senha}
+          onChangeText={setSenha}
         />
-        <TouchableOpacity style={styles.buttonFormularioLogin} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.buttonFormularioLogin} onPress={async () => {
+          await login()
+
+        }}>
           <Text style={styles.textButtonFormularioLogin}>Entrar</Text>
         </TouchableOpacity>
         <Text style={styles.textoRegistrese}>
