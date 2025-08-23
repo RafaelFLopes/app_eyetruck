@@ -40,75 +40,38 @@
    npx expo customize metro.config.js
    ```
    >  *Configure o Metro.config.js com esse código:*
+```
+const { getDefaultConfig } = require('expo/metro-config');
 
+const defaultConfig = getDefaultConfig(__dirname);
+defaultConfig.resolver.sourceExts.push('cjs');
 
-      const { getDefaultConfig } = require('expo/metro-config');
-
-
-      const defaultConfig = getDefaultConfig(__dirname);
-
-      
-      defaultConfig.resolver.sourceExts.push('cjs');
-
-
-      module.exports = defaultConfig;
+module.exports = defaultConfig;
+```
 
 
    >  *Configure o tsconfig.json com esse código: após configurar o FirebaseConfig.js*
-
-
-   {
-
-
+```
+{
   "extends": "expo/tsconfig.base",
-
-
   "compilerOptions": {
-
-
     "strict": true,
-
-
     "paths": {
-
-
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"],
-
-
       "@/*": [
-
-
         "./*"
-
-
       ]
-
-
     }
-
-
   },
-
-
   "include": [
-
-
     "**/*.ts",
-
-
     "**/*.tsx",
-
-
     ".expo/types/**/*.ts",
-
-
     "expo-env.d.ts"
-
-
   ]
-
-
 }
+```
+
 
 
 
