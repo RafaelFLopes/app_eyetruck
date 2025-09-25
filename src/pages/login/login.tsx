@@ -1,15 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
+import InputPadrao from '../../components/inputPadrao/inputPadrao';
 
-import { styles } from './styleIndex';
+
+import { styles } from './styleLogin';
 
 import React, { useState } from 'react';
 
 import { auth } from '../../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-export default function Index() {
+export default function Login() {
 
   const navigation = useNavigation() as any; //para conseguir navegar entre as telas
 
@@ -34,19 +36,20 @@ export default function Index() {
         <Text style={styles.subTituloLogin}>Insira seus dados para acessar sua conta</Text>
       </View>
       <View style={styles.formularioLogin}>
-        <Text style={styles.labelFormularioLogin}>Email</Text>
-        <TextInput
-          style={styles.inputFormularioLogin}
-          placeholder="Email"
+
+        <InputPadrao
+          label="Email"
           value={email}
           onChangeText={setEmail}
+          placeholder="Email"
         />
-        <Text style={styles.labelFormularioLogin}>Senha</Text>
-        <TextInput
-          style={styles.inputFormularioLogin}
-          placeholder="Senha"
+
+        <InputPadrao
+          label="Senha"
           value={senha}
           onChangeText={setSenha}
+          placeholder="Senha"
+          secureTextEntry
         />
 
         <BotaoPreenchido title="Entrar" onPress={login} />
@@ -54,6 +57,7 @@ export default function Index() {
         <Text style={styles.textoRegistrese}>
           Não possui uma conta? <Text style={styles.linkRegistrese} onPress={() => navigation.navigate('Parear')}>Registre-se</Text>
         </Text>
+
       </View>
     </View>
   );

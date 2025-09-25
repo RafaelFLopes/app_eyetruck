@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { DeviceProvider } from "./contexts/DeviceContext";
 import Cadastro from './pages/cadastro/cadastro';
 import EditarPerfil from './pages/editarPefil/editarPerfil';
-import index from './pages/login/index';
+import Index from './pages/telaInicial/index';
+import Login from './pages/login/login';
 import Parear from './pages/parear/parear';
 import EditarAltura from './pages/editarAltura/editarAltura';
 import Tabs from './Tabs';
@@ -15,7 +16,8 @@ export default function Router() {
     <DeviceProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={index} options={{ title: 'Login' }} />
+          <Stack.Screen name="Index" component={Index} options={{ title: 'Index' }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
           <Stack.Screen name="Home" component={Tabs} options={{ title: 'Home' }} />
           <Stack.Screen name="Cadastro" component={Cadastro} options={{ title: 'Cadastro' }} />
           <Stack.Screen name="Parear" component={Parear} options={{ title: 'Parear' }} />

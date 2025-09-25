@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 25,
   },
-
   headerLogin: {
     width: '100%',
     alignItems: 'center',
@@ -29,32 +28,8 @@ const styles = StyleSheet.create({
     width: '100%',
     gap: 10,
   },
-  inputFormularioLogin: {
-    fontSize: 16,
-    height: 50,
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#dbdbdbff',
-  },
-  labelFormularioLogin: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: 600,
-  },
-  buttonFormularioLogin: {
-    backgroundColor: '#2e4e8aff',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  textButtonFormularioLogin: {
-    color: '#f2f2f2',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   textoRegistrese: {
-    marginTop: 20,
+    marginTop: 10,
     textAlign: 'center',
     color: '#666',
   },
