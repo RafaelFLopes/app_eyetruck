@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
 
 import { styles } from './styleIndex';
 
@@ -47,11 +48,9 @@ export default function Index() {
           value={senha}
           onChangeText={setSenha}
         />
-        <TouchableOpacity style={styles.buttonFormularioLogin} onPress={async () => {
-          await login()
-        }}>
-          <Text style={styles.textButtonFormularioLogin}>Entrar</Text>
-        </TouchableOpacity>
+
+        <BotaoPreenchido title="Entrar" onPress={login} />
+
         <Text style={styles.textoRegistrese}>
           Não possui uma conta? <Text style={styles.linkRegistrese} onPress={() => navigation.navigate('Parear')}>Registre-se</Text>
         </Text>
