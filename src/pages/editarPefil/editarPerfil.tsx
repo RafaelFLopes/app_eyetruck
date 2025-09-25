@@ -75,7 +75,7 @@ export default function EditarPerfil() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigation.navigate('Login');
+      navigation.navigate('Index');
     } catch (error: any) {
       console.log(error);
       alert('Erro ao sair: ' + error.message);
