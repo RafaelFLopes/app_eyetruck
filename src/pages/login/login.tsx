@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, View } from "react-native";
+import { Text, View, ImageBackground } from "react-native";
 import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
+import CorpoFormulario from '../../components/corpoFormulario/corpoFormulario';
 import InputPadrao from '../../components/inputPadrao/inputPadrao';
 
+const FundoTela = require('../../../assets/images/fundoTela.png');
 
 import { styles } from './styleLogin';
 
@@ -30,12 +32,17 @@ export default function Login() {
 
   return (
     
-    <View style={styles.containerLogin}>
+    <ImageBackground
+      source={FundoTela}
+      style={styles.containerLogin}
+      resizeMode="cover"
+    >
+    <CorpoFormulario>
       <View style={styles.headerLogin}>
         <Text style={styles.tituloLogin}>Login</Text>
         <Text style={styles.subTituloLogin}>Insira seus dados para acessar sua conta</Text>
       </View>
-      <View style={styles.formularioLogin}>
+      
 
         <InputPadrao
           label="Email"
@@ -58,7 +65,7 @@ export default function Login() {
           Não possui uma conta? <Text style={styles.linkRegistrese} onPress={() => navigation.navigate('Parear')}>Registre-se</Text>
         </Text>
 
-      </View>
-    </View>
+      </CorpoFormulario>
+    </ImageBackground>
   );
 }
