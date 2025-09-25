@@ -12,16 +12,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  tituloLogin: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  subTituloLogin: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-  },
   textoRegistrese: {
     marginTop: 10,
     textAlign: 'center',

@@ -4,6 +4,7 @@ import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
 import CorpoFormulario from '../../components/corpoFormulario/corpoFormulario';
 import InputPadrao from '../../components/inputPadrao/inputPadrao';
 import TituloPadrao from '../../components/tituloPadrao/tituloPadrao';
+import SubTituloPadrao from '../../components/subTituloPadrao/subTituloPadrao';
 
 const FundoTela = require('../../../assets/images/fundoTela.png');
 
@@ -41,7 +42,7 @@ export default function Login() {
     <CorpoFormulario>
       <View style={styles.headerLogin}>
         <TituloPadrao title="Login" />
-        <Text style={styles.subTituloLogin}>Insira seus dados para acessar sua conta</Text>
+        <SubTituloPadrao title="Insira seus dados para acessar sua conta" />
       </View>
       
 
