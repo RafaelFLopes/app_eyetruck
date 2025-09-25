@@ -3,6 +3,7 @@ import { Text, View, ImageBackground } from "react-native";
 import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
 import CorpoFormulario from '../../components/corpoFormulario/corpoFormulario';
 import InputPadrao from '../../components/inputPadrao/inputPadrao';
+import HeaderTitulo from '../../components/headerTitulo/headerTitulo';
 import TituloPadrao from '../../components/tituloPadrao/tituloPadrao';
 import SubTituloPadrao from '../../components/subTituloPadrao/subTituloPadrao';
 
@@ -40,10 +41,10 @@ export default function Login() {
       resizeMode="cover"
     >
     <CorpoFormulario>
-      <View style={styles.headerLogin}>
+      <HeaderTitulo>
         <TituloPadrao title="Login" />
         <SubTituloPadrao title="Insira seus dados para acessar sua conta" />
-      </View>
+      </HeaderTitulo>
       
 
         <InputPadrao

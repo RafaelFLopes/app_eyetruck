@@ -7,11 +7,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  headerLogin: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
   textoRegistrese: {
     marginTop: 10,
     textAlign: 'center',
