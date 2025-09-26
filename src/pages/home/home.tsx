@@ -1,9 +1,8 @@
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
 
 export default function Home() {
-
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20 }}>
       <Text>Home</Text>
     </View>
   );
