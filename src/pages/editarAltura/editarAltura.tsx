@@ -92,8 +92,21 @@ export default function EditarAltura() {
         <InputPadrao
             label="Altura do caminhão"
             value={alturaCaminhao}
-            onChangeText={setAlturaCaminhao}
+            onChangeText={(text) => {
+                // Remove tudo que não for número
+                const onlyNumbers = text.replace(/\D/g, '');
+                // Limita a 3 dígitos
+                const limited = onlyNumbers.slice(0, 3);
+                // Formata para X.XX
+                let formatted = limited;
+                if (limited.length >= 2) {
+                formatted = `${limited[0]}.${limited.slice(1)}`;
+                }
+                setAlturaCaminhao(formatted);
+            }}
             placeholder="Altura em metros"
+            keyboardType="decimal-pad"
+            maxLength={4}
         />
         
           <BotaoPreenchido title="Salvar" onPress={updateAlturaCaminhao} />
