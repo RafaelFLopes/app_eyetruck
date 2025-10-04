@@ -1,8 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import { useDevice } from "../../contexts/DeviceContext"
+import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
+import CorpoFormulario from '../../components/corpoFormulario/corpoFormulario';
+import InputPadrao from '../../components/inputPadrao/inputPadrao';
+import HeaderTitulo from '../../components/headerTitulo/headerTitulo';
+import TituloPadraoMenor from '../../components/tituloPadraoMenor/tituloPadraoMenor';
+import SubTituloPadrao from '../../components/subTituloPadrao/subTituloPadrao';
 
-import { Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import { Text, View, Image, ActivityIndicator } from "react-native";
 import { styles } from './styleEditarAltura';
+
+const ImagemAltura = require('../../../assets/images/imagemAltura.png');
 
 import React, { useState, useEffect } from 'react';
 
@@ -68,24 +76,28 @@ export default function EditarAltura() {
     }
 
     return (
+
         <View style={styles.containerEditarAltura}>
-            <View style={styles.headerEditarAltura}>
-                <Text style={styles.tituloEditarAltura}>Altura do Caminhão</Text>
-                <Text style={styles.subTituloEditarAltura}>Atualize caso necessário a altura do seu caminhão</Text>
-            </View>
-            <View style={styles.formularioEditarAltura}>
-                <Text style={styles.labelFormularioEditarAltura}>Altura do Caminhão</Text>
-                <TextInput
-                    style={styles.inputFormularioEditarAltura}
-                    placeholder="Altura em metros"
-                    keyboardType="numeric"
-                    value={alturaCaminhao}
-                    onChangeText={setAlturaCaminhao}
-                />
-                <TouchableOpacity style={styles.buttonFormularioEditarAltura} onPress={updateAlturaCaminhao}>
-                    <Text style={styles.textButtonFormularioEditarAltura}>Salvar</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+
+      <CorpoFormulario>
+
+        <View style={styles.imagemEditarAlturaFormulario}>
+        <Image source={ImagemAltura} style={styles.imagemEditarAltura} resizeMode="contain" />
+      </View>
+
+        <HeaderTitulo>
+        <TituloPadraoMenor title="Altura do Caminhão" />
+        <SubTituloPadrao title="Atualize caso necessário a altura do seu caminhão" />
+        </HeaderTitulo>
+        <InputPadrao
+            label="Altura do caminhão"
+            value={alturaCaminhao}
+            onChangeText={setAlturaCaminhao}
+            placeholder="Altura em metros"
+        />
+        
+          <BotaoPreenchido title="Salvar" onPress={updateAlturaCaminhao} />
+      </CorpoFormulario>
+    </View>
     );
 }

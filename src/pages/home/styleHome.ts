@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
   },
   titulo: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 17,
   },
   altura: {
     color: "#91b5c9",
     fontSize: 55,
     fontWeight: 800,
     marginTop: -15,
+    marginBottom: -5,
     fontStyle: "italic", // deixa o texto em itálico
   },
   cardItem: {
