@@ -3,77 +3,31 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   containerEditarPerfil: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f2f2f2",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 15,
   },
-  headerEditarPerfil: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 30,
+  imagemEditarPerfilFormulario: {
+    alignItems: "center",
   },
-  tituloEditarPerfil: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
+  imagemEditarPerfil: {
+    height: 80,
   },
-  subTituloEditarPerfil: {
-    fontSize: 18,
-    color: '#666',
-    textAlign: 'center',
+  grupoBotoes: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 9,
   },
-  formularioEditarPerfil: {
-    width: '100%',
-    gap: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
-    padding: 15,
+  botao: {
+    flex: 1,
   },
-  inputFormularioEditarPerfil: {
-    fontSize: 16,
-    height: 50,
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#dbdbdbff',
+  botaoSalvar: {
+    flex: 2, // botão "Salvar" ocupa o dobro do espaço
   },
-  labelFormularioEditarPerfil: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: "600",
-  },
-  buttonFormularioEditarPerfil: {
-    backgroundColor: '#333',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  textButtonFormularioEditarPerfil: {
-    color: '#f2f2f2',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  tituloFormularioEditarPerfil: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#333',
-    marginBottom: 15,
-  },
-  buttonSairConta: {
-    width: '100%',
-    backgroundColor: '#333',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  textButtonSairConta: {
-    color: '#f2f2f2',
-    fontSize: 16,
-    fontWeight: 'bold',
+  botaoSair: {
+    flex: 0.5, // botão "Sair" fica menor
+    backgroundColor: "#a02828ff", // cor de fundo vermelha para o botão "Sair"
   },
 });
 

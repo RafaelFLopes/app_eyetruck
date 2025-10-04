@@ -1,4 +1,4 @@
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, Text, KeyboardTypeOptions } from 'react-native';
 import { styles } from './styleInputPadrao';
 
 interface InputPadraoProps {
@@ -7,6 +7,9 @@ interface InputPadraoProps {
   onChangeText: (text: string) => void;
   placeholder?: string;
   secureTextEntry?: boolean;
+  editable?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  maxLength?: number; // máximo de caracteres permitidos
 }
 
 export default function InputPadrao({
@@ -14,7 +17,10 @@ export default function InputPadrao({
   value,
   onChangeText,
   placeholder,
+  editable,
   secureTextEntry = false,
+  keyboardType = 'default',
+  maxLength, // recebe o máximo de caracteres
 }: InputPadraoProps) {
   return (
     <View style={styles.container}>
@@ -25,6 +31,9 @@ export default function InputPadrao({
         onChangeText={onChangeText}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
+        editable={editable}
+        keyboardType={keyboardType}
+        maxLength={maxLength} // aplica o máximo de caracteres
         placeholderTextColor="#696969ff"
       />
     </View>

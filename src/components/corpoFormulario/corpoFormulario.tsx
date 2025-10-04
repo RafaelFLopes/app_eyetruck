@@ -1,10 +1,15 @@
-import { View} from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { styles } from './styleCorpoFormulario';
 
-export default function CorpoFormulario({ children }: { children: React.ReactNode }) {
+interface CorpoFormularioProps {
+  children: React.ReactNode;
+  style?: ViewStyle | ViewStyle[];
+}
+
+export default function CorpoFormulario({ children, style }: CorpoFormularioProps) {
   return (
-    <View style={styles.corpoFormulario}>
-        {children}
+    <View style={[styles.corpoFormulario, style]}>
+      {children}
     </View>
   );
 }

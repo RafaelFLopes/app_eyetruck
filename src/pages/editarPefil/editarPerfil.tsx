@@ -1,14 +1,23 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { useDevice } from "../../contexts/DeviceContext";
 
-import { Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
-import { styles } from './styleEditarPerfil';
+import BotaoPreenchido from "../../components/botaoPreenchido/botaoPreenchido";
+import CorpoFormulario from "../../components/corpoFormulario/corpoFormulario";
+import InputPadrao from "../../components/inputPadrao/inputPadrao";
+import HeaderTitulo from "../../components/headerTitulo/headerTitulo";
+import TituloPadraoMenor from "../../components/tituloPadraoMenor/tituloPadraoMenor";
+import SubTituloPadrao from "../../components/subTituloPadrao/subTituloPadrao";
 
-import React, { useState, useEffect } from 'react';
+const ImagemEditarPerfil = require("../../../assets/images/imagemEditarPerfil.png");
 
-import { db, auth } from '../../../FirebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth';
+import { Text, Image, View, ActivityIndicator } from "react-native";
+import { styles } from "./styleEditarPerfil";
+
+import React, { useState, useEffect } from "react";
+
+import { db, auth } from "../../../FirebaseConfig";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 
 export default function EditarPerfil() {
   const navigation = useNavigation<any>();
@@ -76,49 +85,54 @@ export default function EditarPerfil() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigation.navigate('Index');
+      navigation.navigate("Index");
     } catch (error: any) {
       console.log(error);
-      alert('Erro ao sair: ' + error.message);
+      alert("Erro ao sair: " + error.message);
     }
   };
 
   return (
     <View style={styles.containerEditarPerfil}>
-      <View style={styles.headerEditarPerfil}>
-        <Text style={styles.tituloEditarPerfil}>Editar Perfil</Text>
-        <Text style={styles.subTituloEditarPerfil}>Atualize os seus dados pessoais</Text>
-      </View>
+      <CorpoFormulario>
+        <View style={styles.imagemEditarPerfilFormulario}>
+          <Image
+            source={ImagemEditarPerfil}
+            style={styles.imagemEditarPerfil}
+            resizeMode="contain"
+          />
+        </View>
 
-      <View style={styles.formularioEditarPerfil}>
-        <Text style={styles.tituloFormularioEditarPerfil}>Editar</Text>
-
-        <Text style={styles.labelFormularioEditarPerfil}>Nome</Text>
-        <TextInput
-          style={styles.inputFormularioEditarPerfil}
-          placeholder="Seu Nome"
+        <HeaderTitulo>
+          <TituloPadraoMenor title="Editar Perfil" />
+          <SubTituloPadrao title="Atualize caso necessário as suas informações pessoais" />
+        </HeaderTitulo>
+        <InputPadrao
+          label="Nome"
           value={nome}
           onChangeText={setNome}
+          placeholder="Seu nome"
         />
-
-        <Text style={styles.labelFormularioEditarPerfil}>Email</Text>
-        <TextInput
-          style={styles.inputFormularioEditarPerfil}
+        <InputPadrao
+          label="Email"
           value={email}
           editable={false} // não editável
+          placeholder="Altura em metros"
+          onChangeText={() => {}}
         />
-
-        <TouchableOpacity
-          style={styles.buttonFormularioEditarPerfil}
-          onPress={updatePerfil}
-        >
-          <Text style={styles.textButtonFormularioEditarPerfil}>Salvar</Text>
-        </TouchableOpacity>
-      </View>
-
-      <TouchableOpacity style={styles.buttonSairConta} onPress={handleLogout}>
-        <Text style={styles.textButtonSairConta}>Sair da conta</Text>
-      </TouchableOpacity>
+        <View style={styles.grupoBotoes}>
+          <BotaoPreenchido
+            title="Salvar"
+            onPress={updatePerfil}
+            style={[styles.botao, styles.botaoSalvar]}
+          />
+          <BotaoPreenchido
+            title="Sair"
+            onPress={handleLogout}
+            style={[styles.botao, styles.botaoSair]}
+          />
+        </View>
+      </CorpoFormulario>
     </View>
   );
 }
