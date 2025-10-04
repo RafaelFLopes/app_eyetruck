@@ -7,7 +7,11 @@ const styles = StyleSheet.create({
   cardAlturaCaminhao: {
     width: '100%',
     minHeight: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
     overflow: 'hidden',
+
   },
 });
 
