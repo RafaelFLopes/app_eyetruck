@@ -15,7 +15,8 @@ import { db } from "../../../FirebaseConfig"; // seu config
 
 import { styles } from './styleParear';
 
-const ImagemParear = require('../../../assets/images/imagemParear.png');
+//const ImagemParear = require('../../../assets/images/imagemParear.png');
+const ImagemEncontarDispositivo = require('../../../assets/images/imagemEncontrarDispositivo.png');
 
 
 export default function Parear() {
@@ -69,18 +70,20 @@ export default function Parear() {
       <CorpoFormulario>
 
         <View style={styles.imagemParearFormulario}>
-        <Image source={ImagemParear} style={styles.imagemParear} resizeMode="contain" />
+        <Image source={ImagemEncontarDispositivo} style={styles.imagemParear} resizeMode="contain" />
       </View>
 
         <HeaderTitulo>
-        <TituloPadraoMenor title="Parear Dispositivo" />
-        <SubTituloPadrao title="Digite o código de seu dispositivo" />
+        <TituloPadraoMenor title="Encontrar Dispositivo" />
+        <SubTituloPadrao title="Digite o código presente no seu dispositivo" />
         </HeaderTitulo>
         <InputPadrao
                   label="Código do dispositivo"
                   value={inputCodigo}
                   onChangeText={setInputCodigo}
-        placeholder="Código"
+        placeholder="Ex: 52200147"
+        keyboardType="numeric"
+        maxLength={8}
         />
         
           <BotaoPreenchido title="Verificar" onPress={verificarDispositivo} />
