@@ -85,21 +85,36 @@ export default function Cadastro() {
           label="Nome"
           value={user}
           onChangeText={setUser}
-          placeholder="Nome"
+          placeholder="Ex: João Silva"
+          maxLength={50}
         />
 
         <InputPadrao
           label="Altura do veículo"
           value={alturaCaminhao}
-          onChangeText={setAlturaCaminhao}
-          placeholder="Altura do veículo"
+            onChangeText={(text) => {
+                // Remove tudo que não for número
+                const onlyNumbers = text.replace(/\D/g, '');
+                // Limita a 3 dígitos
+                const limited = onlyNumbers.slice(0, 3);
+                // Formata para X.XX
+                let formatted = limited;
+                if (limited.length >= 2) {
+                formatted = `${limited[0]}.${limited.slice(1)}`;
+                }
+                setAlturaCaminhao(formatted);
+            }}
+            placeholder="Ex: 3.75"
+            keyboardType="decimal-pad"
+            maxLength={4}
         />
 
         <InputPadrao
           label="Email"
           value={email}
           onChangeText={setEmail}
-          placeholder="Email"
+          placeholder="Ex: seuemail@gmail.com"
+          keyboardType="email-address"
         />
 
         <InputPadrao
