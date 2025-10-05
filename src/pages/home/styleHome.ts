@@ -37,6 +37,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  grupoCardsAzuis: {
+    flexDirection: 'row', // coloca lado a lado
+    justifyContent: 'space-between', // espaçamento entre os cards
+    width: '100%',
+    gap: 10, // funciona em RN 0.71+ para espaçamento entre itens
+  },
+
 });
 
 export { styles };

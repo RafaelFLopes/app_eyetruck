@@ -2,6 +2,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import { View, Image, Text } from "react-native";
 import CardAlturaCaminhao from "../../components/cardAlturaCaminhao/cardAlturaCaminhao";
+import CardAzul from '../../components/cardAzul/cardAzul';
 import { styles } from './styleHome';
 
 import React, { useState } from "react";
@@ -10,11 +11,15 @@ import { db } from '../../../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
 const LogoAzulClaro = require('../../../assets/images/logoAzulClaro.png');
+const ImagemEditarPerfil = require('../../../assets/images/imagemEditarPerfil.png');
+const ImagemHomeDuvidas = require('../../../assets/images/imagemHomeDuvidas.png');
 const LogoLetrasCinza = require('../../../assets/images/logoLetrasCinza.png');
 
 export default function Home() {
   const navigation = useNavigation() as any;
   const EditarAltura = () => { navigation.navigate('EditarAltura') }
+
+  const EditarPerfil = () => { navigation.navigate('EditarPerfil') }
 
   const { codigo } = useDevice();
   const [alturaCaminhao, setAlturaCaminhao] = useState<string | null>(null);
@@ -61,6 +66,20 @@ useFocusEffect(
           </View>
         </View>
       </CardAlturaCaminhao>
+
+
+      <View style={styles.grupoCardsAzuis}>
+        <CardAzul 
+          title="Suas informações" 
+          onPress={EditarPerfil} 
+          imageSource={ImagemEditarPerfil}
+        />
+        <CardAzul 
+          title="Duvidas frequentes" 
+          onPress={EditarPerfil} 
+          imageSource={ImagemHomeDuvidas} 
+        />
+      </View>
     </View>
   );
 }
