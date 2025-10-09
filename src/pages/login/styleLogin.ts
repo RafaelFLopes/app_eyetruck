@@ -7,16 +7,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  textoRegistrese: {
+  textoLink: {
     marginTop: 10,
     textAlign: 'center',
     color: '#666',
   },
-  linkRegistrese: {
+  link: {
     marginTop: 10,
     textAlign: 'center',
     color: '#123c52ff',
     textDecorationLine: 'underline'
+  },
+  botaoVazado: {
+    color: '#123c52ff',
+    borderColor: '#123c52ff',
+    borderWidth: 1,
   },
 });
 

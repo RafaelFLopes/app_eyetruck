@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, ImageBackground } from "react-native";
 import BotaoPreenchido from '../../components/botaoPreenchido/botaoPreenchido';
+import BotaoVazado from '../../components/botaoVazado/botaoVazado';
 import CorpoFormulario from '../../components/corpoFormulario/corpoFormulario';
 import InputPadrao from '../../components/inputPadrao/inputPadrao';
 import HeaderTitulo from '../../components/headerTitulo/headerTitulo';
@@ -22,6 +23,8 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  const esqueciSenha = () => { navigation.navigate('EsqueciSenha') }
 
   const login = async () => {
     try {
@@ -63,9 +66,10 @@ export default function Login() {
         />
 
         <BotaoPreenchido title="Entrar" onPress={login} />
+        <BotaoVazado title="Esqueceu sua senha?" style={styles.botaoVazado } onPress={esqueciSenha} />
 
-        <Text style={styles.textoRegistrese}>
-          Não possui uma conta? <Text style={styles.linkRegistrese} onPress={() => navigation.navigate('Parear')}>Registre-se</Text>
+        <Text style={styles.textoLink}>
+          Não possui uma conta? <Text style={styles.link} onPress={() => navigation.navigate('Parear')}>Registre-se</Text> 
         </Text>
 
       </CorpoFormulario>

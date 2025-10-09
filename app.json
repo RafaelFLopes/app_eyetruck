@@ -8,6 +8,11 @@
     "scheme": "eyetruck",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/logoCinza.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f2f2f2"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -29,10 +34,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/logoCinza.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#f2f2f2"
         }
       ]
     ],
