@@ -8,12 +8,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textoLink: {
-    marginTop: 10,
+    marginTop: 6,
     textAlign: 'center',
     color: '#666',
   },
   link: {
-    marginTop: 10,
     textAlign: 'center',
     color: '#123c52ff',
     textDecorationLine: 'underline'
