@@ -54,7 +54,7 @@ export default function Login() {
           label="Email"
           value={email}
           onChangeText={setEmail}
-          placeholder="Email"
+          placeholder="Ex: seuemail@gmail.com"
         />
 
         <InputPadrao
