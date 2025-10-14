@@ -7,7 +7,9 @@ import HeaderTitulo from '../../components/headerTitulo/headerTitulo';
 import TituloPadraoMenor from '../../components/tituloPadraoMenor/tituloPadraoMenor';
 import SubTituloPadrao from '../../components/subTituloPadrao/subTituloPadrao';
 
-import { Text, View, Image, ActivityIndicator } from "react-native";
+const FundoTela = require('../../../assets/images/imagemFundoEditarAltura.png');
+
+import { Text, View, Image, ActivityIndicator, ImageBackground } from "react-native";
 import { styles } from './styleEditarAltura';
 
 const ImagemAltura = require('../../../assets/images/imagemAltura.png');
@@ -77,7 +79,11 @@ export default function EditarAltura() {
 
     return (
 
-        <View style={styles.containerEditarAltura}>
+      <ImageBackground
+      source={FundoTela}
+      style={styles.containerEditarAltura}
+      resizeMode="cover"
+      >
 
       <CorpoFormulario>
 
@@ -111,6 +117,6 @@ export default function EditarAltura() {
         
           <BotaoPreenchido title="Salvar" onPress={updateAlturaCaminhao} />
       </CorpoFormulario>
-    </View>
+    </ImageBackground>
     );
 }

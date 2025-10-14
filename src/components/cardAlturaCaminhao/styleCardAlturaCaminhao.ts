@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     overflow: 'hidden',
+    boxShadow: '3px 5px 6px #00000028',
+    borderRadius: 10,
 
   },
 });
