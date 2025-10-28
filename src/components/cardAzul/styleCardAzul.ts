@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   padding: 20,
   alignItems: "center",
   justifyContent: "center",
-  boxShadow: '1px 3px 4px #00000028',
+  boxShadow: '1px 3px 4px #00000017',
 },
   textCardAzul: {
     fontSize: 14,
