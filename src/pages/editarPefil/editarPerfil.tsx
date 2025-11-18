@@ -21,7 +21,7 @@ import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 
 export default function EditarPerfil() {
   const navigation = useNavigation<any>();
-  const { codigo } = useDevice(); // Pegando o código do dispositivo (mesma lógica)
+  const { codigo, limparCodigo } = useDevice();  // Pegando o código do dispositivo (mesma lógica)
 
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
@@ -82,15 +82,16 @@ export default function EditarPerfil() {
   }
 
   // Função para sair da conta
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigation.navigate("Index");
-    } catch (error: any) {
-      console.log(error);
-      alert("Erro ao sair: " + error.message);
-    }
-  };
+const handleLogout = async () => {
+  try {
+    await signOut(auth);
+    await limparCodigo(); // <-- APAGA o código do dispositivo do usuário anterior
+    navigation.navigate("Index");
+  } catch (error: any) {
+    console.log(error);
+    alert("Erro ao sair: " + error.message);
+  }
+};
 
   return (
     <View style={styles.containerEditarPerfil}>
