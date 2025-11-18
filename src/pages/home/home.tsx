@@ -62,11 +62,22 @@ useFocusEffect(
             <Text style={styles.titulo}>Altura</Text>
             <Text style={styles.altura}>
               {alturaCaminhao ? `${alturaCaminhao}` : '...'}
+              <Text style={styles.unidadeAltura}>m</Text>
             </Text>
           </View>
         </View>
       </CardAlturaCaminhao>
 
+      <CardAlturaCaminhao onPress={() => {}} >
+        <View style={styles.cardItemCodigoDispostivo}>
+          <View style={styles.tituloCard}>
+            <Text style={styles.tituloCodigoDispostivo}>Código do dispositivo</Text>
+            <Text style={styles.codigoDispostivo}>
+              {codigo ? `${codigo}` : '...'}
+            </Text>
+          </View>
+        </View>
+      </CardAlturaCaminhao>
 
       <View style={styles.grupoCardsAzuis}>
         <CardAzul 
