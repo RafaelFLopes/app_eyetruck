@@ -14,12 +14,18 @@ import { styles } from './styleLogin';
 
 import React, { useState } from 'react';
 
-import { auth } from '../../../FirebaseConfig';
+import { auth, db } from '../../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
+// IMPORTA O CONTEXTO ⬇️
+import { useDevice } from '../../contexts/DeviceContext';
 
 export default function Login() {
 
-  const navigation = useNavigation() as any; //para conseguir navegar entre as telas
+  const navigation = useNavigation() as any;
+
+  const { setCodigo } = useDevice(); // pega função do contexto
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -28,27 +34,50 @@ export default function Login() {
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, senha)
-      navigation.navigate('Home')
+      // login normal
+      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+      const uid = userCredential.user.uid;
+
+      // busca dispositivo no Firestore pelo UID
+      const q = query(
+        collection(db, "tbl_dispositivos"),
+        where("uid", "==", uid)
+      );
+
+      const result = await getDocs(q);
+
+      if (result.empty) {
+        alert("Nenhum dispositivo vinculado a essa conta.");
+        return;
+      }
+
+      // Primeiro dispositivo encontrado
+      const docSnap = result.docs[0];
+      const codigoDispositivo = docSnap.id;
+
+      // SALVA NO CONTEXTO
+      setCodigo(codigoDispositivo);
+
+      // Agora pode ir pra Home
+      navigation.navigate("Home");
+
     } catch (error: any) {
-      console.log(error)
-      alert('Login falhou: ' + error.message);
+      console.log(error);
+      alert("Login falhou: " + error.message);
     }
-  }
+  };
 
   return (
-    
     <ImageBackground
       source={FundoTela}
       style={styles.containerLogin}
       resizeMode="cover"
     >
-    <CorpoFormulario>
-      <HeaderTitulo>
-        <TituloPadrao title="Login" />
-        <SubTituloPadrao title="Insira seus dados para acessar sua conta" />
-      </HeaderTitulo>
-      
+      <CorpoFormulario>
+        <HeaderTitulo>
+          <TituloPadrao title="Login" />
+          <SubTituloPadrao title="Insira seus dados para acessar sua conta" />
+        </HeaderTitulo>
 
         <InputPadrao
           label="Email"
@@ -66,10 +95,10 @@ export default function Login() {
         />
 
         <BotaoPreenchido title="Entrar" onPress={login} />
-        <BotaoVazado title="Esqueceu sua senha?" style={styles.botaoVazado } onPress={esqueciSenha} />
+        <BotaoVazado title="Esqueceu sua senha?" style={styles.botaoVazado} onPress={esqueciSenha} />
 
         <Text style={styles.textoLink}>
-          Não possui uma conta? <Text style={styles.link} onPress={() => navigation.navigate('Parear')}>Registre-se</Text> 
+          Não possui uma conta? <Text style={styles.link} onPress={() => navigation.navigate('Parear')}>Registre-se</Text>
         </Text>
 
       </CorpoFormulario>
