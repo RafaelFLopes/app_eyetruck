@@ -28,6 +28,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+  botaoInfo: {
+  position: 'absolute',
+  top: 45,
+  right: 25,
+  zIndex: 10,
+  width: 30,
+  height: 30,
+  borderRadius: 20,
+  backgroundColor: '#123c52',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+textoBotaoInfo: {
+  color: '#fff',
+  fontSize: 20,
+  fontWeight: 'bold',
+},
+
 });
 
 export { styles };

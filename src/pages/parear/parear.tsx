@@ -65,7 +65,12 @@ export default function Parear() {
         <Text style={styles.textoBotaoVoltar}>{"< Voltar"}</Text>
       </TouchableOpacity>
 
-      
+      <TouchableOpacity
+        style={styles.botaoInfo}
+        onPress={() => navigation.navigate("EncontrarCodigo")}
+      >
+        <Text style={styles.textoBotaoInfo}>i</Text>
+      </TouchableOpacity>
 
       <CorpoFormulario>
 
