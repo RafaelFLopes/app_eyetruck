@@ -8,6 +8,8 @@ import HeaderTitulo from "../../components/headerTitulo/headerTitulo";
 import TituloPadraoMenor from "../../components/tituloPadraoMenor/tituloPadraoMenor";
 import SubTituloPadrao from "../../components/subTituloPadrao/subTituloPadrao";
 
+import MensagemAlerta from "../../components/mensagemAlerta/mensagemAlerta";
+
 const ImagemEditarPerfil = require("../../../assets/images/imagemEditarPerfil.png");
 
 import { Text, Image, View, ActivityIndicator } from "react-native";
@@ -17,28 +19,40 @@ import React, { useState, useEffect } from "react";
 
 import { db, auth } from "../../../FirebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 export default function EditarPerfil() {
   const navigation = useNavigation<any>();
-  const { codigo, limparCodigo } = useDevice();  // Pegando o código do dispositivo (mesma lógica)
+  const { codigo, limparCodigo } = useDevice();
 
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [loading, setLoading] = useState(true);
+
+  // ---- ALERTA GLOBAL DO EDITAR PERFIL ----
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertTipo, setAlertTipo] = useState<"sucesso" | "erro" | "info">("info");
+  const [alertTitulo, setAlertTitulo] = useState<string | undefined>();
+  const [alertMensagem, setAlertMensagem] = useState("");
+
+  const mostrarAlerta = (tipo: "sucesso" | "erro" | "info", mensagem: string, titulo?: string) => {
+    setAlertTipo(tipo);
+    setAlertMensagem(mensagem);
+    setAlertTitulo(titulo);
+    setAlertVisible(true);
+  };
+  // ----------------------------------------
 
   useEffect(() => {
     if (!codigo) return;
 
     async function fetchData() {
       try {
-        // Pega o usuário logado do Authentication
         const user = auth.currentUser;
         if (user) {
-          setEmail(user.email || ""); // email do auth
+          setEmail(user.email || "");
         }
 
-        // Busca o nome no Firestore
         const docRef = doc(db, "tbl_dispositivos", codigo);
         const snapshot = await getDoc(docRef);
 
@@ -48,8 +62,9 @@ export default function EditarPerfil() {
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        mostrarAlerta("erro", "Erro ao carregar seus dados.", "Erro");
       } finally {
-        setLoading(false); // libera a tela mesmo com erro
+        setLoading(false);
       }
     }
 
@@ -58,17 +73,29 @@ export default function EditarPerfil() {
 
   const updatePerfil = async () => {
     if (!nome.trim()) {
-      alert("Preencha todos os campos!");
+      mostrarAlerta("info", "Preencha todos os campos!", "Atenção");
       return;
     }
 
     try {
       const ref = doc(db, "tbl_dispositivos", codigo);
       await updateDoc(ref, { nome });
-      alert("Perfil atualizado com sucesso!");
+
+      mostrarAlerta("sucesso", "Perfil atualizado com sucesso!", "Atualizado");
     } catch (error) {
       console.error("Erro ao atualizar perfil:", error);
-      alert("Erro ao atualizar perfil");
+      mostrarAlerta("erro", "Não foi possível atualizar seu perfil.", "Erro");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      await limparCodigo();
+      navigation.navigate("Index");
+    } catch (error: any) {
+      console.log(error);
+      mostrarAlerta("erro", "Erro ao sair: " + error.message, "Erro");
     }
   };
 
@@ -80,18 +107,6 @@ export default function EditarPerfil() {
       </View>
     );
   }
-
-  // Função para sair da conta
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-    await limparCodigo(); // <-- APAGA o código do dispositivo do usuário anterior
-    navigation.navigate("Index");
-  } catch (error: any) {
-    console.log(error);
-    alert("Erro ao sair: " + error.message);
-  }
-};
 
   return (
     <View style={styles.containerEditarPerfil}>
@@ -108,19 +123,20 @@ const handleLogout = async () => {
           <TituloPadraoMenor title="Editar Perfil" />
           <SubTituloPadrao title="Atualize caso necessário as suas informações pessoais" />
         </HeaderTitulo>
+
         <InputPadrao
           label="Nome"
           value={nome}
           onChangeText={setNome}
           placeholder="Seu nome"
         />
-        <InputPadrao
-          label="Email"
-          value={email}
-          editable={false} // não editável
-          placeholder="Altura em metros"
-          onChangeText={() => {}}
-        />
+
+        <InputPadrao label="Email" 
+        value={email} 
+        editable={false} // não editável 
+        placeholder="Email" 
+        onChangeText={() => {}} />
+
         <View style={styles.grupoBotoes}>
           <BotaoPreenchido
             title="Salvar"
@@ -134,6 +150,14 @@ const handleLogout = async () => {
           />
         </View>
       </CorpoFormulario>
+
+      <MensagemAlerta
+        visible={alertVisible}
+        tipo={alertTipo}
+        titulo={alertTitulo}
+        mensagem={alertMensagem}
+        onClose={() => setAlertVisible(false)}
+      />
     </View>
   );
 }
