@@ -49,6 +49,17 @@ export default function Login() {
   const esqueciSenha = () => { navigation.navigate('EsqueciSenha') }
 
   const login = async () => {
+
+    if (!email.trim()) {
+      mostrarAlerta("info", "Digite o e-mail.", "Atenção");
+      return;
+    }
+
+    if (!senha.trim()) {
+      mostrarAlerta("info", "Digite a senha.", "Atenção");
+      return;
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, senha);
       const uid = userCredential.user.uid;
