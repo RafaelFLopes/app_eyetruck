@@ -12,6 +12,9 @@ const FundoTela = require('../../../assets/images/imagemFundoEditarAltura.png');
 import { Text, View, Image, ActivityIndicator, ImageBackground } from "react-native";
 import { styles } from './styleEditarAltura';
 
+// ✔ IMPORTAÇÃO DO ALERTA CUSTOMIZADO
+import MensagemAlerta from '../../components/mensagemAlerta/mensagemAlerta';
+
 const ImagemAltura = require('../../../assets/images/imagemAltura.png');
 
 import React, { useState, useEffect } from 'react';
@@ -26,8 +29,22 @@ export default function EditarAltura() {
     const [alturaCaminhao, setAlturaCaminhao] = useState("");
     const [loading, setLoading] = useState(true);
 
+  // --- ESTADOS PARA ALERTA ---
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertTipo, setAlertTipo] = useState<"sucesso" | "erro" | "info">("info");
+  const [alertTitulo, setAlertTitulo] = useState<string | undefined>();
+  const [alertMensagem, setAlertMensagem] = useState("");
+
+  // Função rápida para abrir alerta
+  const mostrarAlerta = (tipo: "sucesso" | "erro" | "info", mensagem: string, titulo?: string) => {
+    setAlertTipo(tipo);
+    setAlertMensagem(mensagem);
+    setAlertTitulo(titulo);
+    setAlertVisible(true);
+  };
+
     useEffect(() => {
-        if (!codigo) return; // espera código estar disponível
+        if (!codigo) return;
 
         const fetchData = async () => {
             try {
@@ -38,12 +55,12 @@ export default function EditarAltura() {
                     const data = snapshot.data();
                     setAlturaCaminhao(data.alturaCaminhao?.toString() || "");
                 } else {
-                    alert("Dispositivo não encontrado!");
+                    mostrarAlerta("erro", "Dispositivo não encontrado!", "Atenção");
                     navigation.goBack();
                 }
             } catch (error) {
                 console.error("Erro ao buscar altura:", error);
-                alert("Erro ao buscar altura");
+                mostrarAlerta("erro", "Erro ao buscar altura", "Atenção");
             } finally {
                 setLoading(false);
             }
@@ -54,17 +71,17 @@ export default function EditarAltura() {
 
     const updateAlturaCaminhao = async () => {
         if (!alturaCaminhao.trim()) {
-            alert("Digite uma altura válida!");
+            mostrarAlerta("erro", "Digite uma altura válida!", "Atenção");
             return;
         }
 
         try {
             const ref = doc(db, "tbl_dispositivos", codigo);
             await updateDoc(ref, { alturaCaminhao: parseFloat(alturaCaminhao) });
-            alert("Altura atualizada com sucesso!");
+            mostrarAlerta("sucesso", "Altura atualizada com sucesso!", "Sucesso");
         } catch (error) {
             console.error("Erro ao atualizar altura:", error);
-            alert("Erro ao atualizar altura");
+            mostrarAlerta("erro", "Erro ao atualizar altura!", "Atenção");
         }
     };
 
@@ -78,45 +95,50 @@ export default function EditarAltura() {
     }
 
     return (
+        <ImageBackground
+            source={FundoTela}
+            style={styles.containerEditarAltura}
+            resizeMode="cover"
+        >
+            <CorpoFormulario>
 
-      <ImageBackground
-      source={FundoTela}
-      style={styles.containerEditarAltura}
-      resizeMode="cover"
-      >
+                <View style={styles.imagemEditarAlturaFormulario}>
+                    <Image source={ImagemAltura} style={styles.imagemEditarAltura} resizeMode="contain" />
+                </View>
 
-      <CorpoFormulario>
+                <HeaderTitulo>
+                    <TituloPadraoMenor title="Altura do Caminhão" />
+                    <SubTituloPadrao title="Atualize caso necessário a altura do seu caminhão" />
+                </HeaderTitulo>
 
-        <View style={styles.imagemEditarAlturaFormulario}>
-        <Image source={ImagemAltura} style={styles.imagemEditarAltura} resizeMode="contain" />
-      </View>
+                <InputPadrao
+                    label="Altura do caminhão"
+                    value={alturaCaminhao}
+                    onChangeText={(text) => {
+                        const onlyNumbers = text.replace(/\D/g, '');
+                        const limited = onlyNumbers.slice(0, 3);
 
-        <HeaderTitulo>
-        <TituloPadraoMenor title="Altura do Caminhão" />
-        <SubTituloPadrao title="Atualize caso necessário a altura do seu caminhão" />
-        </HeaderTitulo>
-        <InputPadrao
-            label="Altura do caminhão"
-            value={alturaCaminhao}
-            onChangeText={(text) => {
-                // Remove tudo que não for número
-                const onlyNumbers = text.replace(/\D/g, '');
-                // Limita a 3 dígitos
-                const limited = onlyNumbers.slice(0, 3);
-                // Formata para X.XX
-                let formatted = limited;
-                if (limited.length >= 2) {
-                formatted = `${limited[0]}.${limited.slice(1)}`;
-                }
-                setAlturaCaminhao(formatted);
-            }}
-            placeholder="Altura em metros"
-            keyboardType="decimal-pad"
-            maxLength={4}
-        />
-        
-          <BotaoPreenchido title="Salvar" onPress={updateAlturaCaminhao} />
-      </CorpoFormulario>
-    </ImageBackground>
+                        let formatted = limited;
+                        if (limited.length >= 2) {
+                            formatted = `${limited[0]}.${limited.slice(1)}`;
+                        }
+                        setAlturaCaminhao(formatted);
+                    }}
+                    placeholder="Altura em metros"
+                    keyboardType="decimal-pad"
+                    maxLength={4}
+                />
+
+                <BotaoPreenchido title="Salvar" onPress={updateAlturaCaminhao} />
+            </CorpoFormulario>
+
+            <MensagemAlerta
+                visible={alertVisible}
+                tipo={alertTipo}
+                titulo={alertTitulo}
+                mensagem={alertMensagem}
+                onClose={() => setAlertVisible(false)}
+            />
+        </ImageBackground>
     );
 }

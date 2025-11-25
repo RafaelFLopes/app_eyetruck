@@ -8,6 +8,8 @@ import HeaderTitulo from '../../components/headerTitulo/headerTitulo';
 import TituloPadrao from '../../components/tituloPadrao/tituloPadrao';
 import SubTituloPadrao from '../../components/subTituloPadrao/subTituloPadrao';
 
+import MensagemAlerta from '../../components/mensagemAlerta/mensagemAlerta';
+
 const FundoTela = require('../../../assets/images/fundoTela.png');
 
 import { styles } from './styleLogin';
@@ -18,27 +20,39 @@ import { auth, db } from '../../../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-// IMPORTA O CONTEXTO ⬇️
+// CONTEXTO
 import { useDevice } from '../../contexts/DeviceContext';
 
 export default function Login() {
 
   const navigation = useNavigation() as any;
 
-  const { setCodigo } = useDevice(); // pega função do contexto
+  const { setCodigo } = useDevice();
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  // --- ESTADOS PARA ALERTA ---
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertTipo, setAlertTipo] = useState<"sucesso" | "erro" | "info">("info");
+  const [alertTitulo, setAlertTitulo] = useState<string | undefined>();
+  const [alertMensagem, setAlertMensagem] = useState("");
+
+  // Função rápida para abrir alerta
+  const mostrarAlerta = (tipo: "sucesso" | "erro" | "info", mensagem: string, titulo?: string) => {
+    setAlertTipo(tipo);
+    setAlertMensagem(mensagem);
+    setAlertTitulo(titulo);
+    setAlertVisible(true);
+  };
 
   const esqueciSenha = () => { navigation.navigate('EsqueciSenha') }
 
   const login = async () => {
     try {
-      // login normal
       const userCredential = await signInWithEmailAndPassword(auth, email, senha);
       const uid = userCredential.user.uid;
 
-      // busca dispositivo no Firestore pelo UID
       const q = query(
         collection(db, "tbl_dispositivos"),
         where("uid", "==", uid)
@@ -47,23 +61,27 @@ export default function Login() {
       const result = await getDocs(q);
 
       if (result.empty) {
-        alert("Nenhum dispositivo vinculado a essa conta.");
+        mostrarAlerta("erro", "Nenhum dispositivo vinculado a essa conta.", "Atenção");
         return;
       }
 
-      // Primeiro dispositivo encontrado
       const docSnap = result.docs[0];
       const codigoDispositivo = docSnap.id;
 
-      // SALVA NO CONTEXTO
       setCodigo(codigoDispositivo);
 
-      // Agora pode ir pra Home
       navigation.navigate("Home");
 
     } catch (error: any) {
       console.log(error);
-      alert("Login falhou: " + error.message);
+      if (error.message === "Firebase: Error (auth/invalid-credential).") {
+        mostrarAlerta("erro", "Dados Inválidos. E-mail ou senha incorretos.", "Atenção");
+        return;
+      } else if (error.message === "Firebase: Error (auth/invalid-email).") {
+        mostrarAlerta("erro", "E-mail inválido. Verifique o e-mail digitado.", "Atenção");
+        return;
+      }
+      mostrarAlerta("erro", "Login falhou: " + error.message, "Atenção");
     }
   };
 
@@ -102,6 +120,16 @@ export default function Login() {
         </Text>
 
       </CorpoFormulario>
+
+
+      <MensagemAlerta
+        visible={alertVisible}
+        tipo={alertTipo}
+        titulo={alertTitulo}
+        mensagem={alertMensagem}
+        onClose={() => setAlertVisible(false)}
+      />
+
     </ImageBackground>
   );
 }
