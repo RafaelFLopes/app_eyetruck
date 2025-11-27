@@ -21,6 +21,8 @@ export default function Home() {
 
   const EditarPerfil = () => { navigation.navigate('EditarPerfil') }
 
+  const SobreProjeto = () => { navigation.navigate('SobreProjeto') }
+
   const { codigo } = useDevice();
   const [alturaCaminhao, setAlturaCaminhao] = useState<string | null>(null);
 
@@ -87,7 +89,7 @@ useFocusEffect(
         />
         <CardAzul 
           title="Duvidas frequentes" 
-          onPress={EditarPerfil} 
+          onPress={SobreProjeto} 
           imageSource={ImagemHomeDuvidas} 
         />
       </View>
