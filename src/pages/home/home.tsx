@@ -12,7 +12,7 @@ import { doc, getDoc } from 'firebase/firestore';
 
 const LogoAzulClaro = require('../../../assets/images/logoAzulClaro.png');
 const ImagemEditarPerfil = require('../../../assets/images/imagemEditarPerfil.png');
-const ImagemHomeDuvidas = require('../../../assets/images/imagemHomeDuvidas.png');
+const ImagemSobreProjeto = require('../../../assets/images/imagemSobreProjeto.png');
 const LogoLetrasCinza = require('../../../assets/images/logoLetrasCinza.png');
 
 export default function Home() {
@@ -88,9 +88,9 @@ useFocusEffect(
           imageSource={ImagemEditarPerfil}
         />
         <CardAzul 
-          title="Duvidas frequentes" 
+          title="Sobre o Eyetruck" 
           onPress={SobreProjeto} 
-          imageSource={ImagemHomeDuvidas} 
+          imageSource={ImagemSobreProjeto} 
         />
       </View>
     </View>
